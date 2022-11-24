@@ -20,7 +20,7 @@ public class MinHeapTest {
         minHeap.insert(3);
         minHeap.insert(50);
 
-        assertEquals(4, minHeap.get_min());
+        assertEquals(3, minHeap.get_min());
     }
 
 }
