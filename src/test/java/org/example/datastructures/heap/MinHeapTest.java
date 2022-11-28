@@ -12,7 +12,7 @@ public class MinHeapTest {
     void testInsert() {
         MinHeap minHeap = obtainMinHeapFilled();
 
-        assertEquals(3, minHeap.get_min());
+        assertEquals(3, minHeap.getMin());
     }
 
     @Test
@@ -21,10 +21,21 @@ public class MinHeapTest {
         MinHeap minHeap = obtainMinHeapFilled();
 
         minHeap.deleteMinimum();
-        assertEquals(8, minHeap.get_min());
+        assertEquals(8, minHeap.getMin());
 
         minHeap.deleteMinimum();
-        assertEquals(9, minHeap.get_min());
+        assertEquals(9, minHeap.getMin());
+    }
+
+    @Test
+    @DisplayName("Após a realização de remoçao, a característica do min heap deve ser mantida")
+    void testDeleteElement() {
+        MinHeap minHeap = obtainMinHeapFilled();
+
+        System.out.println(minHeap);
+        minHeap.deleteElement(2);
+        System.out.println(minHeap);
+        assertEquals(3, minHeap.getMin());
     }
 
     private MinHeap obtainMinHeapFilled() {
