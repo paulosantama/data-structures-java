@@ -53,7 +53,7 @@ public class MinHeapTest {
 	}
 
 	private MinHeap<BagOfAnything> obtainMinHeapFilled() {
-		MinHeap<BagOfAnything> minHeap = new MinHeap<>(10);
+		MinHeap<BagOfAnything> minHeap = new MinHeap<>();
 
 		minHeap.insert(new BagOfAnything(10));
 		minHeap.insert(new BagOfAnything(9));

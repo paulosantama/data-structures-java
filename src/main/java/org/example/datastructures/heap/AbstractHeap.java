@@ -7,11 +7,9 @@ import java.util.List;
 public abstract class AbstractHeap<T extends Scorable> {
 
 	private final List<T> arr;
-	private final int capacity;
 
-	public AbstractHeap(int capacity) {
-		this.arr = new ArrayList<>(capacity);
-		this.capacity = capacity;
+	public AbstractHeap() {
+		this.arr = new ArrayList<>();
 	}
 
 	private int parent(int i) {
@@ -35,17 +33,13 @@ public abstract class AbstractHeap<T extends Scorable> {
 	}
 
 	public void insert(T element) {
-		if (this.getSize() >= this.capacity) {
-			System.out.println("Não é possível inserir " + element + ". O Heap está cheio!");
-			return;
-		}
-		int current = this.getSize();
-		this.arr.add(current, element);
-		this.rearrangeFromCurrent(current);
+		this.arr.add(element);
+		this.rearrangeFromCurrent(this.getSize() - 1);
 	}
 
 	protected void deleteFirst() {
-		if (this.getSize() == 0) {
+		if (this.arr.isEmpty()) {
+			System.out.println("O Heap está vazio!");
 			return;
 		}
 		this.arr.remove(0);

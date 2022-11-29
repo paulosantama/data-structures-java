@@ -54,7 +54,7 @@ public class MaxHeapTest {
 	}
 
 	private MaxHeap<BagOfAnything> obtainMaxHeapFilled() {
-		MaxHeap<BagOfAnything> maxHeap = new MaxHeap<>(10);
+		MaxHeap<BagOfAnything> maxHeap = new MaxHeap<>();
 
 		maxHeap.insert(new BagOfAnything(10));
 		maxHeap.insert(new BagOfAnything(9));
