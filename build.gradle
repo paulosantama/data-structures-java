@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'checkstyle'
 }
 
 group 'org.example'
@@ -16,4 +17,15 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+checkstyle {
+    toolVersion '10.5.0'
+    maxErrors 3
+    maxWarnings 3
+    configFile file("config/checkstyle/google_checks.xml")
+}
+
+checkstyleTest {
+    ignoreFailures = true
 }
