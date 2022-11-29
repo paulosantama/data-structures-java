@@ -4,6 +4,6 @@ import java.math.BigInteger;
 
 public interface Scorable {
 
-	BigInteger getScore();
+  BigInteger getScore();
 
 }

@@ -25,3 +25,7 @@ checkstyle {
     maxWarnings 3
     configFile file("config/checkstyle/google_checks.xml")
 }
+
+checkstyleTest {
+    ignoreFailures = true
+}
