@@ -1,14 +1,15 @@
 package org.example.datastructures.heap;
 
-public class MinHeap {
+import java.util.ArrayList;
+import java.util.List;
 
-	private final int[] arr;
-	private int size;
+public class MinHeap<T extends Scorable> {
+
+	private final List<T> arr;
 	private final int capacity;
 
 	public MinHeap(int capacity) {
-		this.arr = new int[capacity];
-		this.size = 0;
+		this.arr = new ArrayList<>(capacity);
 		this.capacity = capacity;
 	}
 
@@ -24,46 +25,47 @@ public class MinHeap {
 		return (i * 2) + 2;
 	}
 
-	public int getMin() {
-		return this.arr[0];
+	private int getSize() {
+		return this.arr.size();
 	}
 
-	public void insert(int element) {
-		if (this.size >= this.capacity) {
+	public T getMin() {
+		return this.arr.get(0);
+	}
+
+	public void insert(T element) {
+		if (this.getSize() >= this.capacity) {
 			System.out.println("Não é possível inserir " + element + ". O Heap está cheio!");
 			return;
 		}
-		int current = this.size++;
-		this.arr[current] = element;
+		int current = this.getSize();
+		this.arr.add(current, element);
 		this.rearrangeFromCurrent(current);
 	}
 
 	public void deleteMinimum() {
-		if (this.size == 0) {
+		if (this.getSize() == 0) {
 			return;
 		}
-
-		int size = this.size;
-		int lastElement = this.arr[size - 1];
-		arr[0] = lastElement;
-		this.size--;
-
+		this.arr.remove(0);
 		this.heapify(0);
 	}
 
 	public void deleteElement(int index) {
-		if (index >= this.size) {
+		if (index >= this.getSize()) {
 			System.out.println("Índice '" + index + "' inexistente!");
 			return;
 		}
 
-		this.arr[index] = this.getMin() - 1;
-		this.rearrangeFromCurrent(index);
+		T temp = this.arr.get(index);
+		this.arr.set(index, this.arr.get(0));
+		this.arr.set(0, temp);
+
 		this.deleteMinimum();
 	}
 
 	private void heapify(int index) {
-		if (this.size <= 1) {
+		if (this.getSize() <= 1) {
 			return;
 		}
 
@@ -72,18 +74,18 @@ public class MinHeap {
 
 		int smallest = index;
 
-		if (left < this.size && this.arr[left] < arr[smallest]) {
+		if (left < this.getSize() && this.arr.get(left).getScore().compareTo(arr.get(smallest).getScore()) < 0) {
 			smallest = left;
 		}
 
-		if (right < this.size && this.arr[right] < arr[smallest]) {
+		if (right < this.getSize() && this.arr.get(right).getScore().compareTo(arr.get(smallest).getScore()) < 0) {
 			smallest = right;
 		}
 
 		if (smallest != index) {
-			int temp = this.arr[index];
-			this.arr[index] = this.arr[smallest];
-			this.arr[smallest] = temp;
+			T temp = this.arr.get(index);
+			this.arr.set(index, this.arr.get(smallest));
+			this.arr.set(smallest, temp);
 			heapify(smallest);
 		}
 	}
@@ -92,19 +94,19 @@ public class MinHeap {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Min Heap:\n");
-		for (int i = 0; i < (this.size - 1); i++) {
-			sb.append(this.arr[i]).append(" -> ");
+		for (int i = 0; i < (this.getSize() - 1); i++) {
+			sb.append(this.arr.get(i)).append(" -> ");
 		}
-		sb.append(this.arr[this.size - 1]);
+		sb.append(this.arr.get(this.getSize() - 1));
 		sb.append("\n");
 		return sb.toString();
 	}
 
 	private void rearrangeFromCurrent(int current) {
-		while (current > 0 && this.arr[parent(current)] > this.arr[current]) {
-			int temp = this.arr[parent(current)];
-			this.arr[parent(current)] = this.arr[current];
-			this.arr[current] = temp;
+		while (current > 0 && this.arr.get(parent(current)).getScore().compareTo(this.arr.get(current).getScore()) > 0) {
+			T temp = this.arr.get(parent(current));
+			this.arr.set(parent(current), this.arr.get(current));
+			this.arr.set(current, temp);
 			current = parent(current);
 		}
 	}
